@@ -81,6 +81,10 @@
     transform: rotateY(180deg);
 }
 
-.memory-game-block .card.is-filped {
+.memory-game-block .card.is-filped,
+.memory-game-block .card.is-matched {
     transform: rotateY(180deg) !important;
+}
+.memory-game-block.no-pointer {
+    pointer-events: none;
 }
