@@ -88,3 +88,23 @@
 .memory-game-block.no-pointer {
     pointer-events: none;
 }
+.game-done {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #333333b8;
+    display: none;
+}
+.game-done button {
+    padding: 10px 20px;
+    background: #00aeffde;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0,26,30,.5);
+    cursor: pointer;
+    outline: none;
+}

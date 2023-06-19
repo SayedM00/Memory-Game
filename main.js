@@ -3,9 +3,11 @@ document.querySelector(".game-start span").onclick = function () {
     userName == null || userName == "" || userName == " " ? document.querySelector(".player .info span").textContent = "Funny Guy" : document.querySelector(".player .info span").textContent = userName;
     document.querySelector(".game-start span").parentElement.remove();
 }
+
 let blcokContainer = document.querySelector(".memory-game-block");
 let myCards = document.querySelectorAll(".memory-game-block .card");
 let rangeArray = [...Array(myCards.length).keys()]
+let players = [];
 
 function randomArray(array) {
     let current = array.length,
@@ -27,7 +29,6 @@ myCards.forEach((ele, index) => {
     ele.style.order = rangeArray[index];
     ele.onclick = function () {
         addFliped(ele)
-        
     }
 })
 
@@ -46,8 +47,7 @@ function addFliped(eleFliped) {
 }
 
 function stopPointer() {
-    blcokContainer.classList.add("no-pointer")
-    
+    blcokContainer.classList.add("no-pointer") 
     setTimeout(()=> {
         blcokContainer.classList.remove("no-pointer")
 
@@ -61,12 +61,32 @@ function chechMatches(first, second) {
         first.classList.remove("is-filped");
         second.classList.remove("is-filped");
 
-        first.classList.add("is-filped");
+        first.classList.add("is-matched");
         second.classList.add("is-matched");
     } else {
+        document.querySelector(".tries span").innerHTML = parseInt(document.querySelector(".tries span").innerHTML) + 1
         setTimeout(function () {
             first.classList.remove("is-filped");
             second.classList.remove("is-filped");
         }, 1000)
+    }
+}
+
+window.onmouseover = function() {
+    let count = Array.from(myCards).filter((ele) => {
+        return ele.classList.contains("is-matched")
+    })
+    if (count.length == myCards.length) {
+        document.querySelector(".game-done").style.cssText = "display:flex; justify-content:center; align-items:center";
+        document.querySelector(".game-done button").addEventListener("click", function () {
+            window.location.reload()
+        })
+        
+        let user = {
+            name : document.querySelector(".player .info span").innerHTML,
+            score : document.querySelector(".player .tries span").innerHTML
+        }
+        players.push(user);
+        localStorage.setItem("players",JSON.stringify(players));
     }
 }
